@@ -1,4 +1,7 @@
 #include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+
 
 // 메모리에 프로그램 로드
 // Instruction Register에 프로그램의 각 명령어를 로드 -> fetch
