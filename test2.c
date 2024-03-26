@@ -19,7 +19,8 @@ int main(int argc, char* argv[]){
     char* PROGRAM = argv[1];
     char prog_line[1024];
     char Memory[100][1024] = {-1,};
-    int PC = 0;
+    int PC = -1;
+    int top = -1;
 
     fp_in = fopen(PROGRAM, "r");
     
@@ -30,41 +31,50 @@ int main(int argc, char* argv[]){
     
     
     //메모리에 프로그램 로드
-    int i = 0;
+   
     while(fgets(prog_line, sizeof(prog_line), fp_in)!=NULL){
+        top++;
         prog_line[strlen(prog_line) - 1] = '\0';
         printf("prog_line : %s\n", prog_line);
-        strcpy(Memory[i], prog_line);
-        printf("Memory[%d] : %s\n", i, Memory[i]);
+        strcpy(Memory[top], prog_line);
+        printf("Memory[%d] : %s\n", top, Memory[top]);
         printf("\n");
-        i++;
+        
     }
+  
 
+    printf("PC is now in %d\n",PC);
+    printf("\n");
     // close the input.txt
     fclose(fp_in);
 
 
 //////////////////////////////////////////////////////////////////
+    char IR[1024];
+
+//메모리에 로드된 프로그램을 한줄 씩 IR에 로드 -> fetch
+    while(PC < top){
+        PC++;
+        strcpy(IR, Memory[PC]);
+        printf("IR : %s\n", IR);
+        printf("PC is now in %d\n",PC);
+        printf("\n");
+       
+    }
 
 
-
-    // char IR[1024] = NULL;
-    // for(int i = 0; Memory[i] != NULL; i++){
-    //     //fetch
-    //     strcpy(IR, Memory[i]);
-    //     printf("IR %d : %s\n",i, IR);
-
-    //     //decode
-    //     //Instruction = decode();
-
-    //     //execute
-    //     //execute(Instruction);
-
-
-    // }
 
 
 
     return 0;
 
 }
+
+/*
+연산 종류 : 5가지
+사칙연산 : ADD, SUB, MUL, DIV
+Move : MOV
+instruction 형식 : i형식, r형식 2가지
+i형식 : imm,imm 또는 reg,imm
+r형식 : reg,reg
+*/
